@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: ./
+    ports:
+      - "3000:3000" # Map host port 3000 to container port 3000
+    depends_on:
+      - backend
+    networks:
+      - mern-app-network
+    # No restart policy needed for frontend usually, depends on use case
+
+  backend:
+    build: ./server
+    ports:
+      - "4000:4000" # Map host port 4000 to container port 4000
+    environment:
+      PORT: 4000
+      # Use the service name 'mongo' as the hostname for inter-container communication
+      MongoDBURI: mongodb://mongo:27017/Order
+    depends_on:
+      - mongo # Ensures mongo starts before backend
+    networks:
+      - mern-app-network
+    restart: always # Restart backend if it crashes
+
+  mongo:
+    image: mongo:latest # Use the official MongoDB image
+    ports:
+      - "27017:27017" # Map host port 27017 to container port 27017
+    volumes:
+      - mongo-data:/data/db # Persist database data using a named volume
+    networks:
+      - mern-app-network
+    restart: always # Restart mongo if it crashes
+
+volumes:
+  mongo-data: # Define the named volume for data persistence
+    driver: local
+
+networks:
+  mern-app-network:
+    driver: bridge
