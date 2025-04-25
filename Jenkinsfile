@@ -21,18 +21,6 @@ pipeline {
             steps {
                 echo 'Cloning Git repository...'
                 git branch: 'main', url: 'https://github.com/Raj2002Rishi/Book_Store.git'
-
-            }
-        }
-
-         stages {
-        stage('Check Docker') {
-            steps {
-                script {
-                    echo "Checking Docker version..."
-                    sh 'docker --version'
-                    sh 'docker-compose --version'
-                }
             }
         }
 
