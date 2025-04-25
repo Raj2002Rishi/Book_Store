@@ -20,7 +20,8 @@ pipeline {
         stage('Clone Repo') {
             steps {
                 echo 'Cloning Git repository...'
-                git 'https://github.com/Raj2002Rishi/Book_Store.git'
+                git branch: 'main', url: 'https://github.com/Raj2002Rishi/Book_Store.git'
+
             }
         }
 
