@@ -2,49 +2,34 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_BUILDKIT = 1
+        COMPOSE_FILE = 'docker-compose.yml'
     }
 
     stages {
-        stage('Check Docker') {
-            steps {
-                script {
-                    // Check if Docker and Docker Compose are installed
-                    echo 'Checking Docker and Docker Compose versions...'
-                    sh 'docker --version || echo "Docker not found!"'
-                    sh 'docker-compose --version || echo "Docker Compose not found!"'
-                }
-            }
-        }
-
         stage('Clone Repo') {
             steps {
-                echo 'Cloning Git repository...'
-                git branch: 'main', url: 'https://github.com/Raj2002Rishi/Book_Store.git'
+                git url: 'https://github.com/Raj2002Rishi/Book_Store.git', branch: 'main'
             }
         }
 
         stage('Clean Up Old Containers') {
             steps {
-                echo 'Stopping any existing containers...'
-                sh '''
-                    docker-compose down || true
-                    docker system prune -f || true
-                '''
+                echo "Stopping any existing containers..."
+                bat 'C:/Program Files/Docker/Docker/resources/bin/docker-compose down || exit 0'
             }
         }
 
         stage('Build Docker Images') {
             steps {
-                echo 'Building Docker images...'
-                sh 'docker-compose build'
+                echo "Building Docker images for frontend and backend..."
+                bat 'C:/Program Files/Docker/Docker/resources/bin/docker-compose build'
             }
         }
 
         stage('Deploy with Docker Compose') {
             steps {
-                echo 'Starting containers...'
-                sh 'docker-compose up -d'
+                echo "Starting up containers..."
+                bat 'C:/Program Files/Docker/Docker/resources/bin/docker-compose up -d'
             }
         }
     }
