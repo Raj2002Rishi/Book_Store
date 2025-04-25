@@ -8,7 +8,8 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/Raj2002Rishi/Book_Store.git'
+                // Clone the repository, specify the branch if needed
+                git branch: 'main', url: 'https://github.com/Raj2002Rishi/Book_Store.git'
             }
         }
 
