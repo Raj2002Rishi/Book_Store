@@ -15,30 +15,21 @@ pipeline {
         stage('Clean Up Old Containers') {
             steps {
                 echo "Stopping any existing containers..."
-                script {
-                    // Using 'sh' for better compatibility with Docker Compose in Jenkins
-                    sh 'docker-compose down || true'
-                }
+                bat 'docker-compose down || true'
             }
         }
 
         stage('Build Docker Images') {
             steps {
                 echo "Building Docker images for frontend and backend..."
-                script {
-                    // Build the Docker images using Docker Compose
-                    sh 'docker-compose build'
-                }
+                bat 'docker-compose build'
             }
         }
 
         stage('Deploy with Docker Compose') {
             steps {
                 echo "Starting up containers..."
-                script {
-                    // Deploy the containers in detached mode
-                    sh 'docker-compose up -d'
-                }
+                bat 'docker-compose up -d'
             }
         }
     }
