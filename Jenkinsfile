@@ -6,10 +6,21 @@ pipeline {
     }
 
     stages {
+        stage('Check Docker') {
+            steps {
+                script {
+                    // Check if Docker and Docker Compose are installed
+                    echo 'Checking Docker and Docker Compose versions...'
+                    sh 'docker --version || echo "Docker not found!"'
+                    sh 'docker-compose --version || echo "Docker Compose not found!"'
+                }
+            }
+        }
+
         stage('Clone Repo') {
             steps {
-                // Clone the repository, specify the branch if needed
-                git branch: 'main', url: 'https://github.com/Raj2002Rishi/Book_Store.git'
+                echo 'Cloning Git repository...'
+                git 'https://github.com/Raj2002Rishi/Book_Store.git'
             }
         }
 
@@ -18,7 +29,7 @@ pipeline {
                 echo 'Stopping any existing containers...'
                 sh '''
                     docker-compose down || true
-                    docker system prune -f
+                    docker system prune -f || true
                 '''
             }
         }
