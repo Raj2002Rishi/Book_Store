@@ -25,6 +25,17 @@ pipeline {
             }
         }
 
+         stages {
+        stage('Check Docker') {
+            steps {
+                script {
+                    echo "Checking Docker version..."
+                    sh 'docker --version'
+                    sh 'docker-compose --version'
+                }
+            }
+        }
+
         stage('Clean Up Old Containers') {
             steps {
                 echo 'Stopping any existing containers...'
