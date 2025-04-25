@@ -15,21 +15,21 @@ pipeline {
         stage('Clean Up Old Containers') {
             steps {
                 echo "Stopping any existing containers..."
-                bat "\"C:/Program Files/Docker/Docker/resources/bin/docker-compose\" down || exit 0"
+                bat '"C:/Program Files/Docker/Docker/resources/bin/docker-compose" down || exit 0'
             }
         }
 
         stage('Build Docker Images') {
             steps {
                 echo "Building Docker images for frontend and backend..."
-                bat "\"C:/Program Files/Docker/Docker/resources/bin/docker-compose\" build"
+                bat '"C:/Program Files/Docker/Docker/resources/bin/docker-compose" build'
             }
         }
 
         stage('Deploy with Docker Compose') {
             steps {
                 echo "Starting up containers..."
-                bat "\"C:/Program Files/Docker/Docker/resources/bin/docker-compose\" up -d"
+                bat '"C:/Program Files/Docker/Docker/resources/bin/docker-compose" up -d'
             }
         }
     }
