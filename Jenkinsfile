@@ -15,21 +15,21 @@ pipeline {
         stage('Clean Up Old Containers') {
             steps {
                 echo "Stopping any existing containers..."
-                sh 'docker-compose down || true'
+                bat 'docker-compose down || exit 0'
             }
         }
 
         stage('Build Docker Images') {
             steps {
                 echo "Building Docker images for frontend and backend..."
-                sh 'docker-compose build'
+                bat 'docker-compose build'
             }
         }
 
         stage('Deploy with Docker Compose') {
             steps {
                 echo "Starting up containers..."
-                sh 'docker-compose up -d'
+                bat 'docker-compose up -d'
             }
         }
     }
