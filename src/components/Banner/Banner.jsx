@@ -35,9 +35,7 @@ const Banner = () => {
                   Library at your fingertips
                 </h1>
                 <p className="text-sm text-gray-500 tracking-wide leading-5">
-                Unlock a world of knowledge and adventure with our vast collection of books. 
-                From timeless classics to the latest bestsellers, we have something for every reader. 
-                Dive into stories that inspire, educate, and entertain!   hii my name is rishi 
+             hii my name is rishi 
                   <br />
                 </p>
                 <div className="flex flex-col gap-4">
